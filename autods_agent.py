@@ -1,7 +1,7 @@
 import os
 import requests
 
-AUTODS_API_KEY = os.getenv("AUTODS_API_KEY")
+AUTODS_API_KEY = os.getenv("d9d7854c-db93-4c39-96ce-be0b1a3be7db")
 
 def fetch_and_push_products():
     print("Simulating AutoDS fetch and push...")
