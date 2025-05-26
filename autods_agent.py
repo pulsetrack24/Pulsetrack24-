@@ -1,7 +1,8 @@
+import os
 import requests
 
-AUTODS_API_KEY = 'd9d7854c-db93-4c39-96ce-be0b1a3be7db'
+AUTODS_API_KEY = os.getenv("AUTODS_API_KEY")
 
 def fetch_and_push_products():
-    # Placeholder for real AutoDS logic
-    print("Fetching and pushing products to Shopify...")
+    print("Simulating AutoDS fetch and push...")
+    # Add real logic here to use AutoDS API

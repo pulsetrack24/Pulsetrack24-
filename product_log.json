@@ -1,16 +1,4 @@
 [
-  {
-    "title": "Organic Probiotic Supplement",
-    "gtin": "1234567890123",
-    "price": "29.99",
-    "status": "In Stock",
-    "source": "AutoDS"
-  },
-  {
-    "title": "Herbal Detox Tea",
-    "gtin": "9876543210987",
-    "price": "19.95",
-    "status": "In Stock",
-    "source": "Shopify"
-  }
+  {"title": "Test Product A", "gtin": "0011223344556", "price": "9.95", "status": "new", "source": "AutoDS"},
+  {"title": "Smart Ring Health", "gtin": "9988776655443", "price": "29.99", "status": "listed", "source": "Shopify"}
 ]

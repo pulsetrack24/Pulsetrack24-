@@ -1,9 +1,10 @@
+import os
 import requests
 
-SHOPIFY_API_KEY = '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'
-SHOPIFY_PASSWORD = 'RileyKali2#'
-SHOPIFY_STORE_URL = 'pulsetrack24.myshopify.com'
+SHOPIFY_API_KEY = os.getenv("SHOPIFY_API_KEY")
+SHOPIFY_PASSWORD = os.getenv("SHOPIFY_PASSWORD")
+SHOPIFY_STORE_URL = os.getenv("SHOPIFY_STORE_URL")
 
 def sync_with_shopify():
-    # Placeholder for real Shopify logic
-    print("Syncing with Shopify...")
+    print("Simulating Shopify sync...")
+    # Add real logic here to push/pull products
