@@ -1,6 +1,5 @@
 from flask import Flask, render_template_string
-import json
-import os
+import json, os
 
 app = Flask(__name__)
 LOG_FILE = "product_log.json"
@@ -15,20 +14,20 @@ def dashboard():
     return render_template_string("""
     <!DOCTYPE html>
     <html>
-    <head><title>QSTAR AI Dashboard</title></head>
+    <head><title>QSTAR Profit Monitor</title></head>
     <body>
-    <h1>Live Product Intelligence</h1>
+    <h2>Live Product Tracker</h2>
     <table border="1">
-        <tr><th>Title</th><th>GTIN</th><th>Price</th><th>Status</th><th>Source</th></tr>
-        {% for p in data %}
-        <tr>
-            <td>{{ p['title'] }}</td>
-            <td>{{ p['gtin'] }}</td>
-            <td>{{ p['price'] }}</td>
-            <td>{{ p['status'] }}</td>
-            <td>{{ p['source'] }}</td>
-        </tr>
-        {% endfor %}
+    <tr><th>Title</th><th>GTIN</th><th>Price</th><th>Status</th><th>Source</th></tr>
+    {% for item in data %}
+    <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.gtin }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.source }}</td>
+    </tr>
+    {% endfor %}
     </table>
     </body>
     </html>

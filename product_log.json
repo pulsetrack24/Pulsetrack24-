@@ -1,4 +1,4 @@
 [
-  {"title": "Test Product A", "gtin": "0011223344556", "price": "9.95", "status": "new", "source": "AutoDS"},
-  {"title": "Smart Ring Health", "gtin": "9988776655443", "price": "29.99", "status": "listed", "source": "Shopify"}
+    {"title": "Smart Health Ring Pro", "gtin": "GTIN5678901", "price": "39.99", "status": "new", "source": "AutoDS"},
+    {"title": "Bio Tracker Band V2", "gtin": "GTIN5678902", "price": "29.50", "status": "new", "source": "AutoDS"}
 ]

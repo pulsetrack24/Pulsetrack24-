@@ -1,6 +1,7 @@
-# QSTAR AI - Smart Dropshipping Engine
+# QSTAR AI Profit Bot v6
 
-Includes:
-- Shopify + AutoDS connectors via API keys
-- AI Learner: flags poor margins, learns from performance
-- Dashboard: Live monitoring via Flask
+Live Shopify-integrated AI that:
+- Writes descriptions
+- Adds GTIN products
+- Auto-publishes
+- Learns and adapts based on performance
