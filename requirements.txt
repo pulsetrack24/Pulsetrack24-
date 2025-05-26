@@ -1,1 +1,6 @@
-Flask\ngunicorn\nrequests
+Flask
+gunicorn
+requests
+beautifulsoup4
+lxml
+scheduleFlask\ngunicorn\nrequests
