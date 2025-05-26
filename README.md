@@ -1,3 +1,4 @@
-# QSTAR Drop Stack
+# QSTAR AI Dropshipping Dashboard v2 (God Mode)
 
-This app automatically pulls products from AutoDS, logs them, and syncs them with Shopify. A live dashboard tracks product activity.
+Live Flask dashboard with Shopify integration and AutoDS product sync.
+Includes GTIN tracking, scheduler, and dashboard for bio health niche.

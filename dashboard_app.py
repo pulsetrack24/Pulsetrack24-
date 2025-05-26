@@ -15,15 +15,21 @@ def dashboard():
     return render_template_string("""
     <!DOCTYPE html>
     <html>
-    <head><title>PulseTrack AI</title></head>
+    <head><title>God Mode Dashboard</title></head>
     <body>
-        <h1>God Mode Dashboard</h1>
-        <table border=1>
-            <tr><th>Title</th><th>GTIN</th><th>Price</th></tr>
-            {% for product in data %}
-                <tr><td>{{ product['title'] }}</td><td>{{ product['gtin'] }}</td><td>{{ product['price'] }}</td></tr>
-            {% endfor %}
-        </table>
+    <h1>Live Product Intelligence</h1>
+    <table border="1">
+        <tr><th>Title</th><th>GTIN</th><th>Price</th><th>Status</th><th>Channel</th></tr>
+        {% for item in data %}
+        <tr>
+            <td>{{ item['title'] }}</td>
+            <td>{{ item['gtin'] }}</td>
+            <td>{{ item['price'] }}</td>
+            <td>{{ item['status'] }}</td>
+            <td>{{ item['channel'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
     </body>
     </html>
     """, data=data)
