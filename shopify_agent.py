@@ -1,9 +1,9 @@
 import os
 import requests
 
-SHOPIFY_API_KEY = os.getenv("SHOPIFY_API_KEY")
-SHOPIFY_PASSWORD = os.getenv("SHOPIFY_PASSWORD")
-SHOPIFY_STORE_URL = os.getenv("SHOPIFY_STORE_URL")
+SHOPIFY_API_KEY = os.getenv("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")
+SHOPIFY_PASSWORD = os.getenv("RileyKali2#")
+SHOPIFY_STORE_URL = os.getenv("pulsetrack24.myshopify.com")
 
 def sync_with_shopify():
     print("Simulating Shopify sync...")
