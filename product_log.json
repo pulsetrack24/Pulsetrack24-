@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Organic Probiotic Supplement",
+    "gtin": "1234567890123",
+    "price": "29.99",
+    "status": "In Stock",
+    "source": "AutoDS"
+  },
+  {
+    "title": "Herbal Detox Tea",
+    "gtin": "9876543210987",
+    "price": "19.95",
+    "status": "In Stock",
+    "source": "Shopify"
+  }
+]
