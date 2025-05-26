@@ -1,6 +1,4 @@
 Flask
 gunicorn
 requests
-beautifulsoup4
-lxml
 schedule

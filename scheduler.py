@@ -7,8 +7,8 @@ def run_scheduler():
     while True:
         products = fetch_top_bio_health_products()
         log_products(products)
-        for product in products:
-            push_product_to_shopify(product)
+        for p in products:
+            push_product_to_shopify(p)
         time.sleep(7200)
 
 if __name__ == "__main__":

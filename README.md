@@ -1,4 +1,8 @@
-# QSTAR AI Dropshipping Dashboard v2 (God Mode)
+# Q-STAR Ultimate Dropshipping AI
 
-Live Flask dashboard with Shopify integration and AutoDS product sync.
-Includes GTIN tracking, scheduler, and dashboard for bio health niche.
+This full system connects AutoDS product data and automates listing to Shopify.
+Includes dashboard tracking, GTIN logging, and 2-hour update scheduling.
+
+## Deploy with:
+- GitHub + Render Web Service (main.py)
+- Background Worker (scheduler.py)
