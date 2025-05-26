@@ -1,15 +1,12 @@
+import schedule
 import time
-from autods_api import fetch_top_bio_health_products
-from product_logger import log_products
-from shopify_agent import push_product_to_shopify
+import subprocess
 
-def run_scheduler():
-    while True:
-        products = fetch_top_bio_health_products()
-        log_products(products)
-        for p in products:
-            push_product_to_shopify(p)
-        time.sleep(7200)
+def run_logger():
+    subprocess.run(["python", "product_logger.py"])
 
-if __name__ == "__main__":
-    run_scheduler()
+schedule.every(6).hours.do(run_logger)
+
+while True:
+    schedule.run_pending()
+    time.sleep(60)
