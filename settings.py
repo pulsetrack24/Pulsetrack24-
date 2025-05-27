@@ -1,0 +1,4 @@
+SHOPIFY_STORE_URL = "https://3rr0n5-0u.myshopify.com"
+SHOPIFY_ACCESS_TOKEN = "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"
+AUTODS_API_KEY = "d9d7854c-db93-4c39-96ce-be0b1a3be7db"
+KLAVIYO_API_KEY = "pk_8b3bf21fd6ced4e54672ec3192ee360631"
