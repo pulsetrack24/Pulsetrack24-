@@ -45,5 +45,7 @@ def push_live_products():
         }
 
         url = f"https://{SHOPIFY_STORE_URL}/admin/api/2023-10/products.json"
+        print("Submitting to Shopify:", url)
         response = requests.post(url, auth=auth, json=payload, headers=headers)
-        print("Shopify Upload:", response.status_code)
+        print("Shopify Upload Status Code:", response.status_code)
+        print("Shopify Response Body:", response.text)
