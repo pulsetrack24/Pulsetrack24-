@@ -1,38 +1,35 @@
 
 import requests
-import json
-from settings import SHOPIFY_STORE_URL, SHOPIFY_API_TOKEN
+
+SHOP_URL = "https://yourshop.myshopify.com"
+ACCESS_TOKEN = "your_shopify_access_token"
 
 def push_live_products(products):
     headers = {
         "Content-Type": "application/json",
-        "X-Shopify-Access-Token": SHOPIFY_API_TOKEN
+        "X-Shopify-Access-Token": ACCESS_TOKEN
     }
 
     for product in products:
-        payload = {
+        product_data = {
             "product": {
-                "title": product['title'],
-                "body_html": product.get('description', 'Auto uploaded product.'),
-                "vendor": product.get('vendor', 'PulseTrack AI'),
-                "product_type": product.get('type', 'General'),
+                "title": product.get("title", "Untitled Product"),
+                "body_html": product.get("description", ""),
+                "vendor": "AutoDS",
+                "product_type": "Bio Health",
                 "variants": [
                     {
-                        "price": product['price'],
-                        "sku": product['gtin']
+                        "price": product.get("price", "0.00"),
+                        "sku": product.get("gtin", "N/A")
                     }
                 ]
             }
         }
 
-        response = requests.post(
-            f"https://{SHOPIFY_STORE_URL}/admin/api/2023-10/products.json",
-            headers=headers,
-            data=json.dumps(payload)
-        )
+        response = requests.post(f"{SHOP_URL}/admin/api/2023-10/products.json", 
+                                 json=product_data, headers=headers)
 
-        if response.status_code != 201:
-            print(f"Failed to upload: {product['title']}")
-            print(f"Response: {response.text}")
+        if response.status_code == 201:
+            print("Product uploaded successfully.")
         else:
-            print(f"Uploaded successfully: {product['title']}")
+            print(f"Failed to upload product: {response.text}")
