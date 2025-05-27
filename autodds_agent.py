@@ -5,7 +5,7 @@ AUTO_DS_TOKEN = "d9d7854c-db93-4c39-96ce-be0b1a3be7db"
 
 def push_to_autods(product):
     headers = {
-        "Authorization": f"Bearer {AUTO_DS_TOKEN}",
+        "Authorization": f"Bearer {d9d7854c-db93-4c39-96ce-be0b1a3be7db}",
         "Content-Type": "application/json"
     }
     data = {
