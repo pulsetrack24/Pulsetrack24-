@@ -1,7 +1,7 @@
 
 import requests
 
-AUTO_DS_TOKEN = "your-autods-api-key"
+AUTO_DS_TOKEN = "d9d7854c-db93-4c39-96ce-be0b1a3be7db"
 
 def push_to_autods(product):
     headers = {
