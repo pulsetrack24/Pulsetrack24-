@@ -1,22 +1,12 @@
-import openai
-import os
+from openai import OpenAI
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key="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"
 
-def optimize_products(products):
-    optimized = []
-    for p in products:
-        if not p.get("price") or not p.get("cost"):
-            continue
-        if (p["price"] - p["cost"]) / p["cost"] < 0.5:
-            continue
-        prompt = f"Generate optimized Shopify tags, title, and description for: {p['title']}"
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        content = response["choices"][0]["message"]["content"]
-        p["description"] = content
-        p["tags"] = ["Smart Health", "Fitness", "Wellness", "Tech"]
-        optimized.append(p)
-    return optimized
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {"role": "system", "content": "You are an e-commerce product optimization expert."},
+        {"role": "user", "content": "Optimize the product listing with SEO, tags, and competitive edge."}
+    ],
+    temperature=0.7
+)
