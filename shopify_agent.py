@@ -1,15 +1,38 @@
-# shopify_agent.py
-import requests
-from settings import SHOPIFY_API_TOKEN, SHOPIFY_STORE_URL, SHOPIFY_API_VERSION
 
-def create_product(product_data):
+import requests
+import json
+from settings import SHOPIFY_STORE_URL, SHOPIFY_API_TOKEN
+
+def push_live_products(products):
     headers = {
         "Content-Type": "application/json",
         "X-Shopify-Access-Token": SHOPIFY_API_TOKEN
     }
-    url = f"{SHOPIFY_STORE_URL}/admin/api/{SHOPIFY_API_VERSION}/products.json"
-    response = requests.post(url, json={"product": product_data}, headers=headers)
-    if response.status_code == 201:
-        print("Product created:", response.json())
-    else:
-        print("Failed to create product:", response.status_code, response.text)
+
+    for product in products:
+        payload = {
+            "product": {
+                "title": product['title'],
+                "body_html": product.get('description', 'Auto uploaded product.'),
+                "vendor": product.get('vendor', 'PulseTrack AI'),
+                "product_type": product.get('type', 'General'),
+                "variants": [
+                    {
+                        "price": product['price'],
+                        "sku": product['gtin']
+                    }
+                ]
+            }
+        }
+
+        response = requests.post(
+            f"https://{SHOPIFY_STORE_URL}/admin/api/2023-10/products.json",
+            headers=headers,
+            data=json.dumps(payload)
+        )
+
+        if response.status_code != 201:
+            print(f"Failed to upload: {product['title']}")
+            print(f"Response: {response.text}")
+        else:
+            print(f"Uploaded successfully: {product['title']}")
