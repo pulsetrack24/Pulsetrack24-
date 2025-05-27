@@ -1,17 +1,18 @@
-from flask import Flask
+
 from shopify_agent import push_live_products
-from ai_learner import analyze_and_optimize
 
-app = Flask(__name__)
+sample_product = {
+    "title": "Organic Bio Herbal Tea",
+    "body_html": "<strong>Boost immunity with herbal wellness</strong>",
+    "vendor": "ProfitBot",
+    "product_type": "Tea",
+    "tags": ["bio", "health", "organic", "tea"],
+    "variants": [
+        {
+            "price": "12.99",
+            "sku": "BIO-TEA-001"
+        }
+    ]
+}
 
-@app.route("/")
-def run_bot():
-    try:
-        analyze_and_optimize()
-        push_live_products()
-        return "✅ Profit Bot v6: Live sync complete."
-    except Exception as e:
-        return f"❌ Error during sync: {str(e)}"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+push_live_products([sample_product])
