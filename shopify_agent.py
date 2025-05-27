@@ -1,35 +1,28 @@
-
 import requests
-
-SHOP_URL = "https://yourshop.myshopify.com"
-ACCESS_TOKEN = "your_shopify_access_token"
+import json
+from settings import SHOPIFY_DOMAIN, SHOPIFY_ACCESS_TOKEN
 
 def push_live_products(products):
     headers = {
         "Content-Type": "application/json",
-        "X-Shopify-Access-Token": ACCESS_TOKEN
+        "X-Shopify-Access-Token": SHOPIFY_ACCESS_TOKEN
     }
+    endpoint = f"https://{SHOPIFY_DOMAIN}/admin/api/2023-10/products.json"
 
     for product in products:
-        product_data = {
+        payload = {
             "product": {
-                "title": product.get("title", "Untitled Product"),
-                "body_html": product.get("description", ""),
-                "vendor": "AutoDS",
-                "product_type": "Bio Health",
-                "variants": [
-                    {
-                        "price": product.get("price", "0.00"),
-                        "sku": product.get("gtin", "N/A")
-                    }
-                ]
+                "title": product["title"],
+                "body_html": product.get("description", "High quality product."),
+                "vendor": product.get("vendor", "BioHealth"),
+                "product_type": product.get("type", "Health"),
+                "variants": [{
+                    "price": product["price"],
+                    "sku": product.get("gtin", "SKU0001")
+                }]
             }
         }
-
-        response = requests.post(f"{SHOP_URL}/admin/api/2023-10/products.json", 
-                                 json=product_data, headers=headers)
-
-        if response.status_code == 201:
-            print("Product uploaded successfully.")
-        else:
-            print(f"Failed to upload product: {response.text}")
+        response = requests.post(endpoint, headers=headers, data=json.dumps(payload))
+        if not response.ok:
+            raise Exception(f"Shopify API error: {response.text}")
+    return "All products pushed successfully."
