@@ -1,8 +1,8 @@
 
 import requests
 
-SHOP_URL = "your-store.myshopify.com"
-ACCESS_TOKEN = "your-shopify-access-token"
+SHOP_URL = "3rr0n5-0u.myshopify.com"
+ACCESS_TOKEN = "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"
 
 def push_to_shopify(product):
     headers = {
