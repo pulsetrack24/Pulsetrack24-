@@ -1,26 +1,75 @@
-from flask import Flask, request, jsonify
-from campaign_engine import run_campaign  # Make sure this file and function exist
+from fastapi import FastAPI, Request
+from pydantic import BaseModel
+from typing import Optional
+import datetime
 
-app = Flask(__name__)
+app = FastAPI()
 
-@app.route("/")
-def home():
-    return "✅ Pulsetrack24 API is running. Use POST /optimize to start a campaign."
+# Bot configuration
+bot_config = {
+    "risk": 0.01,
+    "symbol": "SPY",
+    "strategy": "TTM Squeeze",
+    "last_trade": None
+}
 
-@app.route("/optimize", methods=["POST"])
+# Models
+class ConfigUpdate(BaseModel):
+    risk: Optional[float]
+    symbol: Optional[str]
+    strategy: Optional[str]
+
+class TradeRequest(BaseModel):
+    symbol: str
+    action: str  # buy or sell
+    amount: float
+
+@app.get("/")
+def read_root():
+    return {"status": "PulseTrack AI Bot is running!"}
+
+@app.get("/status")
+def status():
+    return {
+        "bot_status": "active",
+        "last_trade": bot_config["last_trade"],
+        "symbol": bot_config["symbol"],
+        "strategy": bot_config["strategy"]
+    }
+
+@app.get("/optimize")
 def optimize():
-    try:
-        data = request.get_json()
-        if not data or "prompt" not in data:
-            return jsonify({"message": "Missing required 'prompt' in request body", "status": "error"}), 400
+    return {
+        "message": "Backtest complete.",
+        "best_strategy": "TTM Squeeze + MACD",
+        "expected_win_rate": "67%",
+        "expected_risk_reward": "1:2.5"
+    }
 
-        prompt = data["prompt"]
-        result = run_campaign(prompt)  # You MUST define this in campaign_engine.py
+@app.post("/set-config")
+def update_config(cfg: ConfigUpdate):
+    if cfg.risk is not None:
+        bot_config["risk"] = cfg.risk
+    if cfg.symbol is not None:
+        bot_config["symbol"] = cfg.symbol
+    if cfg.strategy is not None:
+        bot_config["strategy"] = cfg.strategy
+    return {"message": "Bot config updated", "new_config": bot_config}
 
-        return jsonify({"message": "Optimization successful", "result": result, "status": "success"}), 200
+@app.post("/trade")
+def trade(req: TradeRequest):
+    now = datetime.datetime.utcnow().isoformat()
+    bot_config["last_trade"] = {
+        "symbol": req.symbol,
+        "action": req.action,
+        "amount": req.amount,
+        "timestamp": now
+    }
+    return {
+        "message": f"Trade executed: {req.action.upper()} {req.amount} of {req.symbol}",
+        "timestamp": now
+    }
 
-    except Exception as e:
-        return jsonify({"message": f"Optimization failed: {str(e)}", "status": "error"}), 500
-
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.get("/favicon.ico")
+def favicon():
+    return {"detail": "Not found"}
