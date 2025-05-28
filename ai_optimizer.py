@@ -4,7 +4,7 @@ from openai import OpenAI
 # Safely load API key from environment
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key=os.getenv("OPENROUTER_API_KEY")
+    api_key=os.getenv("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")
 )
 
 def optimize_products(products):
