@@ -1,4 +1,5 @@
 import os
+import json
 from openai import OpenAI
 
 client = OpenAI(
@@ -8,19 +9,14 @@ client = OpenAI(
 
 def optimize_products(products):
     messages = [
-        {
-            "role": "system",
-            "content": "You are an expert in e-commerce product optimization."
-        },
-        {
-            "role": "user",
-            "content": f"Optimize the following products for SEO and conversions:\n{products}"
-        }
+        {"role": "system", "content": "You are an expert e-commerce assistant."},
+        {"role": "user", "content": f"Optimize these products for online selling: {products}"}
     ]
 
     response = client.chat.completions.create(
-        model="mistralai/mistral-7b-instruct",  # ✅ Valid Free Model
+        model="openrouter/autoai/gpt-3.5-turbo",  # ✅ This one is free
         messages=messages,
     )
 
-    return response.choices[0].message.content
+    # Parse the string content into JSON list of dicts
+    return json.loads(response.choices[0].message.content)
