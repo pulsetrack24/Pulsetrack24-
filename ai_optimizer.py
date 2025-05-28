@@ -7,20 +7,16 @@ client = OpenAI(
 )
 
 def optimize_products(products):
+    messages = [
+        {"role": "system", "content": "You are an e-commerce product optimizer."},
+        {"role": "user", "content": f"Optimize these products for better sales:\n{products}"}
+    ]
+
     try:
         response = client.chat.completions.create(
-            model="openrouter/autoai/gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are an ecommerce product optimizer."},
-                {"role": "user", "content": f"Optimize the following product: {products}"}
-            ]
+            model="openrouter/openai/gpt-3.5-turbo",
+            messages=messages
         )
-        if hasattr(response, "choices") and response.choices:
-            return response.choices[0].message.content
-        else:
-            print("⚠️ Response missing 'choices':", response)
-            return {"message": "Optimization failed: no choices", "status": "error"}
-
+        return response.choices[0].message.content
     except Exception as e:
-        print("🔥 Optimization Exception:", e)
-        return {"message": f"Optimization failed: {str(e)}", "status": "error"}
+        return f"Optimization failed: {str(e)}"
