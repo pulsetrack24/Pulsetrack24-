@@ -1,36 +1,28 @@
 import os
-import json
 import openai
 
-# Correct OpenRouter base and key
-openai.api_key = os.getenv("OPENROUTER_API_KEY")
-openai.base_url = "https://openrouter.ai/api/v1"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def optimize_products(products):
-    print("📦 Received Products:", products)
-
-    prompt = f"""
-You're an eCommerce AI assistant. For each product below, return:
-- Clean product title
-- 5 bullet points
-- A sales description
-- Keyword list
-- Tags
-
-Products:
-{json.dumps(products, indent=2)}
-"""
-
     try:
+        print(f"📦 Received Products: {products}")
+
+        # Prepare prompt
+        prompt = f"You're an expert Shopify strategist. Optimize pricing, headlines, and keywords for this product list:\n\n{products}"
+
+        # Make API call using OpenAI SDK v1.x format
         response = openai.chat.completions.create(
-            model="nous-hermes2",  # Free & valid OpenRouter model
+            model="gpt-3.5-turbo",  # or any free, valid OpenRouter-compatible model
             messages=[
                 {"role": "user", "content": prompt}
             ]
         )
-        content = response.choices[0].message.content
-        print("✅ Response:", content)
-        return json.loads(content)
+
+        # ✅ Safely extract content
+        optimized_content = response.choices[0].message.content
+        print("✅ Optimized Content:", optimized_content)
+        return optimized_content
+
     except Exception as e:
         print("🔥 Optimization Error:", e)
-        raise
+        return str(e)
