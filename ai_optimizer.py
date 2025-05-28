@@ -13,7 +13,7 @@ def optimize_products(products):
     ]
 
     response = client.chat.completions.create(
-        model="openrouter/openai/gpt-4-turbo",
+        model="openrouter/openai",
         messages=messages,
     )
 
