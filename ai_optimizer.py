@@ -2,8 +2,8 @@ import os
 import openai
 import json
 
-# Configure OpenRouter
-openai.api_key = os.getenv("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)
+# Setup OpenRouter API credentials
+openai.api_key = os.getenv("OPENROUTER_API_KEY")
 openai.api_base = "https://openrouter.ai/api/v1"
 
 def optimize_products(products):
@@ -18,8 +18,7 @@ def optimize_products(products):
     )
 
     try:
-        content = response["choices"][0]["message"]["content"]
-        return json.loads(content)  # This must return a list of dicts
+        return json.loads(response["choices"][0]["message"]["content"])
     except (KeyError, json.JSONDecodeError):
-        print("Invalid response or formatting error")
+        print("Invalid response or JSON formatting error.")
         return []
