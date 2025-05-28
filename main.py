@@ -5,9 +5,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "Profit Bot V6 is live."
+    return "🟢 Profit Bot is live!"
 
 @app.route("/run")
 def run():
-    result = run_campaign()
-    return jsonify(result)
+    try:
+        result = run_campaign()
+        return jsonify({"status": "success", "result": result})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+if __name__ == "__main__":
+    app.run(debug=True)

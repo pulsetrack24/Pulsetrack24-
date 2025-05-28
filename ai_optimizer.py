@@ -1,28 +1,25 @@
-import os
-import openai
-
-openai.api_key = os.getenv("OPENAI_API_KEY")
+import requests
 
 def optimize_products(products):
     try:
-        print(f"📦 Received Products: {products}")
+        input_text = f"Optimize these products for profitability: {products}"
+        headers = {
+            "Authorization": "Bearer YOUR_OPENROUTER_API_KEY",  # Replace with your OpenRouter key
+            "HTTP-Referer": "https://yourdomain.com",  # Or your Replit project
+            "X-Title": "ProfitBot"
+        }
 
-        # Prepare prompt
-        prompt = f"You're an expert Shopify strategist. Optimize pricing, headlines, and keywords for this product list:\n\n{products}"
-
-        # Make API call using OpenAI SDK v1.x format
-        response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",  # or any free, valid OpenRouter-compatible model
-            messages=[
-                {"role": "user", "content": prompt}
+        payload = {
+            "model": "openrouter/cinematika-7b",  # Free OpenRouter model
+            "messages": [
+                {"role": "system", "content": "You are a profit optimization assistant."},
+                {"role": "user", "content": input_text}
             ]
-        )
+        }
 
-        # ✅ Safely extract content
-        optimized_content = response.choices[0].message.content
-        print("✅ Optimized Content:", optimized_content)
-        return optimized_content
+        res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
+        result = res.json()
 
+        return result["choices"][0]["message"]["content"]
     except Exception as e:
-        print("🔥 Optimization Error:", e)
-        return str(e)
+        raise Exception(f"Optimization failed: {str(e)}")
