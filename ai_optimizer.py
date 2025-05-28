@@ -4,7 +4,7 @@ import json
 
 # ✅ Create the OpenAI client with only supported arguments
 client = OpenAI(
-    api_key=os.getenv("OPENROUTER_API_KEY"),  # Set in Render's environment variables
+    api_key=os.getenv("OPENROUTER_API_KEY"),
     base_url="https://openrouter.ai/api/v1"
 )
 
