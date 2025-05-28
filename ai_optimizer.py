@@ -5,7 +5,7 @@ client = OpenAI(api_key=os.getenv("OPENROUTER_API_KEY"), base_url="https://openr
 
 def optimize_products(prompt):
     response = client.chat.completions.create(
-        model="openrouter/openai/gpt-4",
+        model="model="gpt-4-turbo"  # or the correct OpenRouter-compatible model name,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7
     )
