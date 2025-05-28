@@ -1,20 +1,21 @@
+import os
 from openai import OpenAI
 
-client = OpenAI()
+# Safely load API key from environment
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.getenv("OPENROUTER_API_KEY")
+)
 
-def optimize_products(products: list) -> str:
-    prompt = f"""
-    Optimize the following list of product titles for better performance in digital marketing campaigns.
-    Ensure they are clear, engaging, and keyword-rich. Keep the format as a list.
-
-    Products:
-    {products}
-    """
-
+def optimize_products(products):
+    messages = [
+        {"role": "system", "content": "You are an expert Shopify product optimizer. Write SEO-friendly tags, titles, and descriptions."},
+        {"role": "user", "content": f"Optimize these products for smart health niche:\n{products}"}
+    ]
+    
     response = client.chat.completions.create(
-        model="gpt-4-turbo",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
+        model="openrouter/openai/gpt-4-turbo",
+        messages=messages,
     )
 
-    return response.choices[0].message.content.strip()
+    return response.choices[0].message.content
