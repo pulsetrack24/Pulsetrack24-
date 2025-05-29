@@ -1,0 +1,18 @@
+import requests
+import os
+
+SHOPIFY_STORE = os.getenv("SHOPIFY_STORE")  # e.g. "yourstore.myshopify.com"
+SHOPIFY_ACCESS_TOKEN = os.getenv("SHOPIFY_ACCESS_TOKEN")
+
+def get_products(limit=10):
+    url = f"https://{SHOPIFY_STORE}/admin/api/2023-10/products.json?limit={limit}"
+    headers = {
+        "X-Shopify-Access-Token": SHOPIFY_ACCESS_TOKEN,
+        "Content-Type": "application/json",
+    }
+
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json().get("products", [])
+    else:
+        raise Exception(f"Error fetching products: {response.status_code} - {response.text}")
