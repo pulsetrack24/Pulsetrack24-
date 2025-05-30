@@ -1,13 +1,18 @@
-import time
+import os
 import requests
 
-def run_scheduler():
-    while True:
-        try:
-            requests.get("https://pulsetrack24.onrender.com/run")
-        except Exception as e:
-            print(f"Scheduler error: {e}")
-        time.sleep(3600)  # Run every hour
+SHOPIFY_ACCESS_TOKEN = os.getenv("SHOPIFY_ACCESS_TOKEN")
+SHOPIFY_STORE_NAME = os.getenv("SHOPIFY_STORE_NAME")
+SHOPIFY_API_VERSION = os.getenv("SHOPIFY_API_VERSION", "2024-04")
 
-if __name__ == "__main__":
-    run_scheduler()
+BASE_URL = f"https://{SHOPIFY_STORE_NAME}.myshopify.com/admin/api/{SHOPIFY_API_VERSION}"
+
+HEADERS = {
+    "Content-Type": "application/json",
+    "X-Shopify-Access-Token": SHOPIFY_ACCESS_TOKEN
+}
+
+def get_products():
+    url = f"{BASE_URL}/products.json"
+    response = requests.get(url, headers=HEADERS)
+    return response.json()
