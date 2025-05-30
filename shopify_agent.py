@@ -2,7 +2,7 @@
 import requests
 
 SHOP_URL = "3rr0n5-0u.myshopify.com"
-ACCESS_TOKEN = "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"
+ACCESS_TOKEN = "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"
 
 def push_to_shopify(product):
     headers = {
