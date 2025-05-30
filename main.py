@@ -1,11 +1,12 @@
 from fastapi import FastAPI
+from shopify_connector import get_products
 
 app = FastAPI()
 
 @app.get("/")
-async def root():
-    return {"message": "API is working 🚀"}
+def home():
+    return {"message": "PulseTrack24 is alive"}
 
-@app.get("/status")
-async def status():
-    return {"status": "Service live ✅"}
+@app.get("/products")
+def products():
+    return {"products": get_products()}
