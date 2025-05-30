@@ -1,8 +1,8 @@
 import os
 import requests
 
-SHOPIFY_STORE_NAME = os.getenv("SHOPIFY_STORE_NAME")
 SHOPIFY_ACCESS_TOKEN = os.getenv("SHOPIFY_ACCESS_TOKEN")
+SHOPIFY_STORE_NAME = os.getenv("SHOPIFY_STORE_NAME")
 
 BASE_URL = f"https://{SHOPIFY_STORE_NAME}.myshopify.com/admin/api/2023-10"
 
